@@ -1,1 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Embedded Google Spreadsheet</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        h1 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+            font-size: 2.5rem;
+        }
+        
+        .description {
+            color: #7f8c8d;
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .iframe-container {
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .responsive-iframe {
+            width: 100%;
+            height: 600px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        
+        .instructions {
+            background-color: #e8f4fc;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            border-radius: 5px;
+            margin-top: 30px;
+        }
+        
+        .instructions h3 {
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+        
+        .instructions ul {
+            padding-left: 20px;
+        }
+        
+        .instructions li {
+            margin-bottom: 8px;
+        }
+        
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #95a5a6;
+            font-size: 0.9rem;
+        }
+        
+        @media (max-width: 768px) {
+            .responsive-iframe {
+                height: 400px;
+            }
+            
+            h1 {
+                font-size: 2rem;
+            }
+            
+            body {
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .responsive-iframe {
+                height: 300px;
+            }
+            
+            .iframe-container {
+                padding: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Embedded Google Spreadsheet</h1>
+            <p class="description">This page displays a Google Sheets document embedded using an iframe. The spreadsheet is hosted on Google's servers and is displayed here for easy viewing.</p>
+        </header>
+        
+        <main>
+            <div class="iframe-container">
+                <iframe 
+                    src="https://docs.google.com/spreadsheets/d/e/2PACX-1vQI-veKWU6V7bXUgdE1MCCNglj2q6EhRhdztJ-LU7aEP6_ljBDtiP9xOyOUtYWz6jQRkpzNNW4gz5zC/pubhtml?widget=true&amp;headers=false" 
+                    class="responsive-iframe"
+                    title="Google Spreadsheet"
+                    allowfullscreen>
+                </iframe>
+            </div>
+            
+            <div class="instructions">
+                <h3>About This Embedded Spreadsheet</h3>
+                <ul>
+                    <li>The spreadsheet is loaded directly from Google's servers</li>
+                    <li>You can scroll within the iframe to view different parts of the spreadsheet</li>
+                    <li>The iframe is responsive and adjusts to different screen sizes</li>
+                    <li>Interaction with the spreadsheet depends on the permissions set by the owner</li>
+                    <li>If the spreadsheet is not visible, it may be due to privacy settings or network restrictions</li>
+                </ul>
+            </div>
+        </main>
+        
+        <footer>
+            <p>Embedded Google Spreadsheet &copy; <span id="currentYear"></span> | Last updated on document load</p>
+        </footer>
+    </div>
 
+    <script>
+        // Set current year in footer
+        document.getElementById('currentYear').textContent = new Date().getFullYear();
+        
+        // Add loading state for iframe
+        const iframe = document.querySelector('.responsive-iframe');
+        iframe.onload = function() {
+            console.log('Spreadsheet loaded successfully');
+        };
+        
+        iframe.onerror = function() {
+            console.error('Error loading spreadsheet');
+        };
+    </script>
+</body>
+</html>
