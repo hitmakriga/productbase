@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Veikala katalogs</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f5f5f5;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 1rem;
+        }
+
+        .category-nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: white;
+            color: #333;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .category-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+
+        .category-btn.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .category-btn.lego { border-left: 4px solid #ff4444; }
+        .category-btn.virtuvei { border-left: 4px solid #44aa44; }
+        .category-btn.berniem { border-left: 4px solid #4444ff; }
+
+        .category-section {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .category-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 2rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 3px solid;
+        }
+
+        .section-title.lego { border-bottom-color: #ff4444; }
+        .section-title.virtuvei { border-bottom-color: #44aa44; }
+        .section-title.berniem { border-bottom-color: #4444ff; }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-image {
+            height: 200px;
+            background-color: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: #333;
+        }
+
+        .product-price {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 1rem;
+        }
+
+        .btn-add {
+            width: 100%;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            cursor: pointer;
+            transition: opacity 0.3s ease;
+        }
+
+        .btn-add:hover {
+            opacity: 0.9;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            background-color: #333;
+            color: white;
+            margin-top: 3rem;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .products-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Mūsu veikala katalogs 🛍️</h1>
+        <p>Atrodi sev vēlamās preces dažādās kategorijās</p>
+    </div>
+
+    <div class="container">
+        <div class="category-nav">
+            <button class="category-btn lego active" onclick="showCategory('lego')">🧱 Lego</button>
+            <button class="category-btn virtuvei" onclick="showCategory('virtuvei')">🍳 Virtuvei</button>
+            <button class="category-btn berniem" onclick="showCategory('berniem')">🧸 Bērniem</button>
+        </div>
+
+        <!-- Lego sadaļa -->
+        <div id="lego-section" class="category-section active">
+            <h2 class="section-title lego">🧱 Lego konstruktori</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🏰</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Lego Pils 7000</h3>
+                        <div class="product-price">€45.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🚗</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Lego Sacīkšu auto</h3>
+                        <div class="product-price">€29.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🚀</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Lego Kosmosa kuģis</h3>
+                        <div class="product-price">€59.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🏗️</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Lego Celtniecības komplekts</h3>
+                        <div class="product-price">€89.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🦖</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Lego Dinozauru pasaule</h3>
+                        <div class="product-price">€64.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">👨‍🚒</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Lego Ugunsdzēsēju stacija</h3>
+                        <div class="product-price">€54.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Virtuvei sadaļa -->
+        <div id="virtuvei-section" class="category-section">
+            <h2 class="section-title virtuvei">🍳 Preces virtuvei</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🍳</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Keramikas panna 28cm</h3>
+                        <div class="product-price">€34.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🔪</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Šefpavāra nažu komplekts</h3>
+                        <div class="product-price">€79.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🥘</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Katlu komplekts 5 daļās</h3>
+                        <div class="product-price">€129.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🍲</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Čuguna katls 5L</h3>
+                        <div class="product-price">€89.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🥣</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Bļodu komplekts (6 gab.)</h3>
+                        <div class="product-price">€24.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">⚡</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Elektriskā tējkanna 1.7L</h3>
+                        <div class="product-price">€39.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bērniem sadaļa -->
+        <div id="berniem-section" class="category-section">
+            <h2 class="section-title berniem">🧸 Preces bērniem</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">🧸</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Mīkstais lācītis 50cm</h3>
+                        <div class="product-price">€29.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🚂</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Vilciņš ar vagoniem</h3>
+                        <div class="product-price">€44.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">📚</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Grāmatu komplekts "Piedzīvojumi"</h3>
+                        <div class="product-price">€19.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🎨</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Zīmēšanas piederumu komplekts</h3>
+                        <div class="product-price">€24.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🏀</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Basketbola grozs ar bumbu</h3>
+                        <div class="product-price">€49.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">🎮</div>
+                    <div class="product-info">
+                        <h3 class="product-title">Galda spēle "Monopols"</h3>
+                        <div class="product-price">€34.99</div>
+                        <button class="btn-add">Pievienot grozam</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>© 2024 Mūsu veikals - Visas tiesības aizsargātas</p>
+        <p style="margin-top: 0.5rem; font-size: 0.9rem;">Atrodi mūs arī sociālajos tīklos 📱</p>
+    </footer>
+
+    <script>
+        function showCategory(category) {
+            // Paslēpt visas sadaļas
+            document.getElementById('lego-section').classList.remove('active');
+            document.getElementById('virtuvei-section').classList.remove('active');
+            document.getElementById('berniem-section').classList.remove('active');
+            
+            // Noņemt aktīvo klasi no visām pogām
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Parādīt izvēlēto sadaļu
+            document.getElementById(category + '-section').classList.add('active');
+            
+            // Pievienot aktīvo klasi atbilstošajai pogai
+            event.target.classList.add('active');
+        }
+
+        // Pievienot click event listener visām pogām
+        document.querySelectorAll('.btn-add').forEach(button => {
+            button.addEventListener('click', function() {
+                const product = this.closest('.product-card').querySelector('.product-title').textContent;
+                alert(`Prece "${product}" pievienota grozam! 🛒`);
+            });
+        });
+    </script>
+</body>
+</html>
